@@ -185,3 +185,4 @@ document.getElementById("highScoreBoard").innerText = "High Score: " + highScore
     list.appendChild(li);
   });
 }
+document.getElementById("eatSound").play();
