@@ -35,3 +35,7 @@ button {
 button:hover {
   background-color: #45a049;
 }
+
+#gameCanvas {
+  transition: opacity 0.5s ease;
+}
