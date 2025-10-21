@@ -6,25 +6,28 @@
   <link rel="stylesheet" href="custom.css">
 </head>
 <body>
-  <button onclick="restartGame()">Restart Game</button>button>
+  <div id="gameContainer">
     <h1>Snake Game</h1>
     <canvas id="gameCanvas" width="400" height="400"></canvas>
     <div id="scoreBoard">Score: 0</div>
-    <button onclick="startGame()">Start Game</button>
+    <div id="countdown" style="font-size: 48px; margin: 20px;"></div>
+    <button onclick="startGame()">Start</button>
+    <button onclick="togglePause()">Pause</button>
+    <button onclick="restartGame()">Restart</button>
   </div>
 
   <script>
     const canvas = document.getElementById("gameCanvas");
     const ctx = canvas.getContext("2d");
+    const countdownDisplay = document.getElementById("countdown");
 
     const box = 20;
     let snake = [{ x: 9 * box, y: 10 * box }];
     let direction = "RIGHT";
-    let food = {
-      x: Math.floor(Math.random() * 19) * box,
-      y: Math.floor(Math.random() * 19) * box
-    };
+    let food = { x: 5 * box, y: 5 * box };
     let score = 0;
+    let game;
+    let isPaused = false;
 
     document.addEventListener("keydown", changeDirection);
 
@@ -36,6 +39,8 @@
     }
 
     function draw() {
+      if (isPaused) return;
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       for (let i = 0; i < snake.length; i++) {
@@ -67,7 +72,6 @@
 
       const newHead = { x: headX, y: headY };
 
-      // Game over conditions
       if (
         headX < 0 || headX >= canvas.width ||
         headY < 0 || headY >= canvas.height ||
@@ -81,7 +85,6 @@
       snake.unshift(newHead);
     }
 
-    let game;
     function startGame() {
       snake = [{ x: 9 * box, y: 10 * box }];
       direction = "RIGHT";
@@ -93,6 +96,56 @@
       };
       clearInterval(game);
       game = setInterval(draw, 100);
+    }
+
+    function togglePause() {
+      isPaused = !isPaused;
+      document.querySelector("button[onclick='togglePause()']").innerText = isPaused ? "Resume" : "Pause";
+    }
+
+    function restartGame() {
+      canvas.style.opacity = 0;
+      disableButtons(true);
+
+      setTimeout(() => {
+        countdownAndSpeak(() => {
+          canvas.style.opacity = 1;
+          disableButtons(false);
+          startGame();
+        });
+      }, 500);
+    }
+
+    function disableButtons(state) {
+      document.querySelectorAll("button").forEach(btn => btn.disabled = state);
+    }
+
+    function countdownAndSpeak(callback) {
+      let count = 3;
+      countdownDisplay.innerText = "";
+
+      function speak(text) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        speechSynthesis.speak(utterance);
+      }
+
+      function updateCountdown() {
+        if (count > 0) {
+          countdownDisplay.innerText = count;
+          speak(count.toString());
+          count--;
+          setTimeout(updateCountdown, 1000);
+        } else {
+          countdownDisplay.innerText = "Go!";
+          speak("Go!");
+          setTimeout(() => {
+            countdownDisplay.innerText = "";
+            if (callback) callback();
+          }, 500);
+        }
+      }
+
+      updateCountdown();
     }
   </script>
 </body>
