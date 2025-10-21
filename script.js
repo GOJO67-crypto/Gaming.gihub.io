@@ -90,8 +90,14 @@ function collision(x, y, array) {
 const game = setInterval(draw, 100);
 
 function restartGame() {
-  clearInterval(game); // Stop the current game loop
-  startGame();         // Start a new game
+  // Fade out
+  canvas.style.opacity = 0;
+
+  setTimeout(() => {
+    clearInterval(game);
+    startGame();
+    canvas.style.opacity = 1; // Fade back in
+  }, 500); // Match the CSS transition duration
 }
 
 let isPaused = false;
