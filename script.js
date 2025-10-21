@@ -1,3 +1,6 @@
+let delay = 100; // initial speed (milliseconds between frames)
+let game;
+
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
@@ -94,11 +97,35 @@ function restartGame() {
   canvas.style.opacity = 0;
 
   setTimeout(() => {
+    function startGame(if (headX === food.x && headY === food.y) {
+  score++;
+  document.getElementById("scoreBoard").innerText = "Score: " + score;
+  food = {
+    x: Math.floor(Math.random() * 19) * box,
+    y: Math.floor(Math.random() * 19) * box
+  };
+
+  // Increase speed every 10 apples
+  if (score % 10 === 0) {
+    delay = Math.max(20, delay - 5); // minimum delay to avoid going too fast
     clearInterval(game);
-    startGame();
-    canvas.style.opacity = 1; // Fade back in
-  }, 500); // Match the CSS transition duration
+    game = setInterval(draw, delay);
+  }
 }
+ 
+  snake = [{ x: 9 * box, y: 10 * box }];
+  direction = "RIGHT";
+  score = 0;
+  delay = 100;
+  document.getElementById("scoreBoard").innerText = "Score: 0";
+  food = {
+    x: Math.floor(Math.random() * 19) * box,
+    y: Math.floor(Math.random() * 19) * box
+  };
+  clearInterval(game);
+  game = setInterval(draw, delay);
+}
+
 
 let isPaused = false;
 
