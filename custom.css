@@ -26,7 +26,7 @@ button {
   font-size: 16px;
   margin: 10px;
   cursor: pointer;
-  background-color: #4CAF50;
+  background-color: #4CAF50; /* red for restart */
   color: white;
   border: none;
   border-radius: 5px;
