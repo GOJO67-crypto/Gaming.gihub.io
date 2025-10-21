@@ -88,3 +88,9 @@ function collision(x, y, array) {
 }
 
 const game = setInterval(draw, 100);
+
+function restartGame() {
+  clearInterval(game); // Stop the current game loop
+  startGame();         // Start a new game
+}
+
