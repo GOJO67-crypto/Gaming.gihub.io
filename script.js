@@ -146,3 +146,13 @@ function togglePause() {
 score = 0;
 document.getElementById("scoreBoard").innerText = "Score: 0";
 document.getElementById("highScoreBoard").innerText = "High Score: " + highScore;
+#gameContainer:<div id="usernamePrompt">
+  <label for="usernameInput">Enter your username:</label>
+  <input type="text" id="usernameInput" />
+  <button onclick="submitUsername()">Play</button>
+</div>
+
+<div id="leaderboard">
+  <h2>Leaderboard</h2>
+  <ul id="leaderboardList"></ul>
+</div>
