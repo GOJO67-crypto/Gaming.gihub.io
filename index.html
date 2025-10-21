@@ -155,4 +155,14 @@
 </body>
 </html>
 
-#gameContainer<div id="highScoreBoard">High Score: 0</div>
+#gameContainer<div id="highScoreBoard">High Score: 0</div> <div id="usernamePrompt">
+  <label for="usernameInput">Enter your username:</label>
+  <input type="text" id="usernameInput" />
+  <button onclick="submitUsername()">Play</button>
+</div>
+
+<div id="leaderboard">
+  <h2>Leaderboard</h2>
+  <ul id="leaderboardList"></ul>
+</div>
+
