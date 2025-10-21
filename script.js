@@ -1,3 +1,5 @@
+let highScore = 0;
+
 let delay = 100; // initial speed (milliseconds between frames)
 let game;
 
