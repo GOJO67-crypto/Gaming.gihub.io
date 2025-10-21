@@ -84,6 +84,14 @@ function draw() {
   ctx.font = "20px Arial";
   ctx.fillText("Score: " + score, 10, 20);
 }
+score++;
+document.getElementById("scoreBoard").innerText = "Score: " + score;
+
+// Update high score if needed
+if (score > highScore) {
+  highScore = score;
+  document.getElementById("highScoreBoard").innerText = "High Score: " + highScore;
+}
 
 function collision(x, y, array) {
   for (let i = 0; i < array.length; i++) {
@@ -135,3 +143,6 @@ function togglePause() {
   isPaused = !isPaused;
   document.querySelector("button[onclick='togglePause()']").innerText = isPaused ? "Resume" : "Pause";
 }
+score = 0;
+document.getElementById("scoreBoard").innerText = "Score: 0";
+document.getElementById("highScoreBoard").innerText = "High Score: " + highScore;
