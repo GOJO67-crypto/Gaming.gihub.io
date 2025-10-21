@@ -26,7 +26,7 @@ function changeDirection(event) {
 }
 
 function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  if(isPaused) return;
 
   // Draw snake
   for (let i = 0; i < snake.length; i++) {
@@ -94,3 +94,9 @@ function restartGame() {
   startGame();         // Start a new game
 }
 
+let isPaused = false;
+
+function togglePause() {
+  isPaused = !isPaused;
+  document.querySelector("button[onclick='togglePause()']").innerText = isPaused ? "Resume" : "Pause";
+}
